@@ -34,7 +34,7 @@ impl View for BackgroundImage {
         let image_id = if let Some(image_id) = *self.image.borrow() {
             image_id
         } else {
-            canvas.load_image_mem(include_bytes!("gradient.png"), ImageFlags::GENERATE_MIPMAPS).expect("error loading background image")
+            canvas.load_image_mem(include_bytes!("gradient.png"), ImageFlags::empty()).expect("error loading background image")
         };
 
         *self.image.borrow_mut() = Some(image_id);
