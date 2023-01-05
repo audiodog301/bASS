@@ -1,0 +1,20 @@
+[package]
+name = "bass"
+version = "0.1.0"
+edition = "2021"
+authors = ["liam fissell"]
+
+description = "A simple gain plugin with an vizia GUI"
+
+[workspace]
+members = [ "xtask" ]
+
+[lib]
+# The `lib` artifact is needed for the standalone target
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+nih_plug = { git = "https://github.com/robbert-vdh/nih-plug", features = ["assert_process_allocs", "standalone"] }
+nih_plug_vizia = { git = "https://github.com/robbert-vdh/nih-plug" }
+
+atomic_float = "0.1"
