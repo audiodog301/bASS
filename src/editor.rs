@@ -75,31 +75,31 @@ pub(crate) fn create(
         }
         .build(cx);
 
-        ResizeHandle::new(cx);
+        ZStack::new(cx, |cx| {
+            BackgroundImage::new(cx).size(Stretch(1.0));
+            ResizeHandle::new(cx);
+            VStack::new(cx, |cx| {
+                Label::new(cx, "bASS!~")
+                    .font(assets::NOTO_SANS_THIN)
+                    .font_size(30.0)
+                    .height(Pixels(50.0))
+                    .child_top(Stretch(1.0))
+                    .child_bottom(Pixels(0.0));
 
-        VStack::new(cx, |cx| {
-            Label::new(cx, "bASS!~")
-                .font(assets::NOTO_SANS_THIN)
-                .font_size(30.0)
-                .height(Pixels(50.0))
-                .child_top(Stretch(1.0))
-                .child_bottom(Pixels(0.0));
+                // NOTE: VIZIA adds 1 pixel of additional height to these labels, so we'll need to
+                //       compensate for that
+                Label::new(cx, "skrunkle").bottom(Pixels(-1.0));
+                ParamSlider::new(cx, Data::params, |params| &params.skrunkle);
 
-            // NOTE: VIZIA adds 1 pixel of additional height to these labels, so we'll need to
-            //       compensate for that
-            Label::new(cx, "skrunkle").bottom(Pixels(-1.0));
-            ParamSlider::new(cx, Data::params, |params| &params.skrunkle);
+                Label::new(cx, "gate?????").bottom(Pixels(0.0));
+                ParamSlider::new(cx, Data::params, |params| &params.threshold);
 
-            Label::new(cx, "gate?????").bottom(Pixels(0.0));
-            ParamSlider::new(cx, Data::params, |params| &params.threshold);
-
-            Label::new(cx, "output gain").bottom(Pixels(0.0));
-            ParamSlider::new(cx, Data::params, |params| &params.output_gain);
-
-            BackgroundImage::new(cx);
-        })
-        .row_between(Pixels(0.0))
-        .child_left(Stretch(1.0))
-        .child_right(Stretch(1.0));
+                Label::new(cx, "output gain").bottom(Pixels(0.0));
+                ParamSlider::new(cx, Data::params, |params| &params.output_gain);
+            })
+            .row_between(Pixels(0.0))
+            .child_left(Stretch(1.0))
+            .child_right(Stretch(1.0));
+        });
     })
 }
