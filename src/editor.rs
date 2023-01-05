@@ -96,7 +96,7 @@ pub(crate) fn create(
             Label::new(cx, "output gain").bottom(Pixels(0.0));
             ParamSlider::new(cx, Data::params, |params| &params.output_gain);
 
-            //BackgroundImage::new(cx);
+            BackgroundImage::new(cx);
         })
         .row_between(Pixels(0.0))
         .child_left(Stretch(1.0))
